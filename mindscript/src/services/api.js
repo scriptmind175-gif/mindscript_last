@@ -8,7 +8,7 @@ const getApiBaseUrl = () => {
   }
   
   // For Vercel URL or localhost, use the backend URL
-  return 'https://mindscript-backend-fresh.vercel.app';
+  return 'https://mind-script-main1.vercel.app';
 };
 
 const API_BASE_URL = getApiBaseUrl();
