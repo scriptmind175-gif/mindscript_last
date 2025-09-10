@@ -7,8 +7,8 @@ const getApiBaseUrl = () => {
     return window.location.origin; // Same domain, no CORS issues
   }
   
-  // For Vercel URL or localhost, use the backend URL
-  return 'https://mind-script-main1.vercel.app';
+  // For Vercel URL or localhost, use the fresh backend URL
+  return 'https://mindscript-backend-fresh.vercel.app';
 };
 
 const API_BASE_URL = getApiBaseUrl();
