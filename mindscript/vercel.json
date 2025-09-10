@@ -24,7 +24,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://mindscript-backend-fresh.vercel.app/api/$1"
+      "destination": "https://mind-script-main1.vercel.app/api/$1"
     }
   ],
   "redirects": [
