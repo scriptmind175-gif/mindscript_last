@@ -1,0 +1,368 @@
+.courses {
+  padding: 0 1em;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #ffffff;
+}
+
+.courses h2 {
+  text-align: center;
+  color: #1f2937;
+  font-size: 2.5em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.7em;
+  animation: coursesFadeIn 1.2s cubic-bezier(0.4,0,0.2,1);
+  padding: 0 1em;
+}
+
+@keyframes coursesFadeIn {
+  from { opacity: 0; transform: scale(0.92) translateY(30px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.course-list {
+  display: flex;
+  gap: 2em;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 1em;
+  margin: 2em 0;
+}
+
+.course-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+  text-align: left;
+}
+
+.course-highlights li {
+  padding: 5px 0;
+  font-size: 14px;
+  color: #6b7280;
+  position: relative;
+  padding-left: 20px;
+}
+
+.course-highlights li:before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: #059669;
+  border-radius: 50%;
+  margin-right: 8px;
+  position: absolute;
+  left: 0;
+  top: 8px;
+}
+
+.course-highlights li:after {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  color: white;
+  font-size: 10px;
+  position: absolute;
+  left: 4px;
+  top: 11px;
+}
+
+.course-block {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2em 2.5em;
+  min-width: 280px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0;
+  border: 2px solid #e5e7eb;
+}
+
+.course-block:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: #2563eb;
+}
+
+.course-block .btn {
+  width: auto;
+  min-width: 140px;
+  max-width: 90%;
+  display: block;
+  margin: 1.2em auto 0 auto;
+  padding: 0.8em 2em;
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.course-block .btn:hover {
+  background: #1e40af;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 16px rgba(30, 64, 175, 0.3);
+}
+
+.course-block h3 {
+  color: #1f2937;
+  font-size: 1.5em;
+  margin-bottom: 1em;
+  font-weight: 700;
+}
+
+.course-block p {
+  color: #6b7280;
+  margin-bottom: 1.5em;
+  line-height: 1.6;
+}
+
+.fee {
+  color: #ea580c;
+  font-weight: 700;
+  font-size: 1.3em;
+  margin: 1em 0;
+}
+
+/* Combo course pricing styles */
+.original-price {
+  text-decoration: line-through;
+  color: #9ca3af;
+  font-size: 0.9em;
+  margin-right: 0.5em;
+  font-weight: 500;
+}
+
+.current-price {
+  color: #ea580c;
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+.course-block .btn {
+  width: auto;
+  min-width: 140px;
+  max-width: 90%;
+  display: block;
+  margin: 1.2em auto 0 auto;
+  padding: 0.8em 2em;
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.course-block .btn:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 0;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  border: 1px solid #e5e7eb;
+  animation: slideIn 0.3s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2em 2em 1em 2em;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-header h3 {
+  color: #1f2937;
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 2em;
+  cursor: pointer;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+.modal-body {
+  padding: 2em;
+}
+
+.form-group {
+  margin-bottom: 1.5em;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5em;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.8em;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: border-color 0.2s ease;
+  background: #ffffff;
+  color: #1f2937;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1em;
+  justify-content: flex-end;
+  margin-top: 2em;
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #1f2937;
+  border: 2px solid #e5e7eb;
+}
+
+.btn-secondary:hover {
+  background: #e5e7eb;
+  color: #1f2937;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .course-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .course-block {
+    min-width: 100%;
+    max-width: 400px;
+  }
+}
+@media (max-width: 700px) {
+  .course-list { flex-direction: column; align-items: center; }
+}
+@media (max-width: 900px) {
+  .course-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5em;
+  }
+}
+@media (max-width: 500px) {
+  .course-block {
+    font-size: 0.98em;
+    padding: 1em 0.5em;
+  }
+  .fee {
+    font-size: 1em;
+  }
+  .section {
+    padding: 1em 0.5em;
+  }
+  h2, h3 {
+    font-size: 1.1em;
+    text-align: center;
+  }
+}
+
+/* Add these styles to your existing Courses.css */
+
+.success-popup {
+  text-align: center;
+  max-width: 400px;
+  padding: 2rem;
+}
+
+.success-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.success-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.success-popup h3 {
+  color: #28a745;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.success-popup p {
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.redirect-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #28a745;
+}
+
+.redirect-message p {
+  font-weight: 500;
+  color: #28a745;
+  margin: 0;
+}

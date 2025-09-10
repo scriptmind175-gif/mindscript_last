@@ -1,0 +1,380 @@
+/* Add Taskor font declaration at the top of the file */
+@font-face {
+  font-family: 'Taskor';
+  src: url('../../taskor/Taskor Personal Use.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  z-index: 2000;
+  background: #ffffff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 1rem; /* Add horizontal padding */
+  height: 64px;
+  min-height: 64px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  flex-shrink: 0;
+  order: -1;
+  margin-left: 0; /* Remove negative margin */
+}
+
+.logo-text {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff6b35;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  font-family: 'Taskor', 'Arial', sans-serif; /* Updated to use Taskor font */
+  letter-spacing: -0.5px;
+  display: block;
+  padding-right: 2rem;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: visible; /* Ensure text is not clipped */
+}
+
+/* Mobile adjustments */
+@media (max-width: 700px) {
+  .navbar {
+    background: #ffffff;
+    height: 64px;
+    min-height: 64px;
+    justify-content: flex-start;
+    padding: 0 0.5rem; /* Add padding to prevent cutoff */
+  }
+  
+  .nav-logo {
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    margin-left: 0; /* Remove negative margin */
+  }
+  
+  .logo-text {
+    font-size: 1.5rem;
+    display: block;
+    padding-right: 1.5rem;
+    margin-left: 0.5rem; /* Add small left margin to prevent cutoff */
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 0.75rem; /* Increase padding for very small screens */
+  }
+  
+  .nav-logo {
+    margin-left: 0; /* Remove negative margin */
+  }
+  
+  .logo-text {
+    font-size: 1.3rem;
+    display: block;
+    padding-right: 1rem;
+    margin-left: 0.75rem; /* Add more left margin for very small screens */
+  }
+}
+
+.logo-text:hover {
+  color: #e55a2b;
+}
+
+/* Mobile adjustments */
+@media (max-width: 700px) {
+  .logo-text {
+    font-size: 1.5rem;
+    display: block;
+    padding-right: 1.5rem; /* Smaller padding on mobile */
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 1.3rem;
+    display: block;
+    padding-right: 1rem; /* Even smaller padding on small screens */
+  }
+}
+
+.logo-image {
+  display: none !important; /* Keep image hidden */
+}
+
+/* Remove the conflicting rule at line 125 */
+/* .logo-text {
+  display: none;
+} */
+
+/* Mobile adjustments */
+@media (max-width: 700px) {
+  .logo-text {
+    font-size: 1.5rem;
+    display: block; /* Ensure visibility on mobile */
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 1.3rem;
+    display: block; /* Ensure visibility on small screens */
+  }
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 1em;
+  padding-right: 1em; /* Add some right padding for breathing room */
+}
+
+.logo-image {
+  height: 180px; /* Increased from 120px (50% bigger) */
+  width: 525px; /* Increased from 350px (50% bigger) */
+  max-width: 600px; /* Increased from 400px (50% bigger) */
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  filter: drop-shadow(0, 0, 0, 0.1);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  margin-left: -5px;
+}
+
+/* Mobile adjustments - also 50% bigger */
+@media (max-width: 700px) {
+  .navbar {
+    background: #ffffff;
+    height: 64px;
+    min-height: 64px;
+    justify-content: flex-start;
+    padding: 0;
+  }
+  
+  .nav-logo {
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    margin-left: -8px;
+  }
+  
+  .logo-image {
+    height: 75px; /* Increased from 50px (50% bigger) */
+    width: auto;
+    max-width: 300px; /* Increased from 200px (50% bigger) */
+    margin-left: -3px;
+  }
+}
+
+/* For very small screens - also 50% bigger */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0;
+  }
+  
+  .nav-logo {
+    margin-left: -5px;
+  }
+  
+  .logo-image {
+    height: 60px; /* Increased from 40px (50% bigger) */
+    max-width: 225px; /* Increased from 150px (50% bigger) */
+    margin-left: -2px;
+  }
+}
+
+.logo-image:hover {
+  transform: scale(1.05);
+}
+
+/* Remove or comment out this rule at line 136: */
+/* .logo-text {
+  display: none;
+} */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  margin-right: 1em; /* Add right margin to prevent cutoff */
+}
+
+.nav-links a {
+  margin-left: 1.5em; /* Reduced from 2em to 1.5em */
+  padding: 0.6em 1.2em; /* Slightly reduced padding */
+  border-radius: 8px;
+  font-weight: 500;
+  color: #6b7280;
+  transition: all 0.2s ease;
+  text-decoration: none; /* Remove underlines */
+}
+
+.nav-links a:first-child {
+  margin-left: 0; /* Remove left margin from first element */
+}
+
+.nav-links a:last-child {
+  margin-right: 0.5em; /* Add specific margin to last element (Contact) */
+}
+
+.nav-links a.active, .nav-links a:hover {
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+  text-decoration: none; /* Ensure no underlines on hover */
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  margin-left: auto;
+  z-index: 1100;
+  padding: 8px;
+}
+
+.bar {
+  display: block;
+  width: 26px;
+  height: 3px;
+  margin: 3px 0;
+  background: #1f2937;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* Hamburger Animation - Transform to X when open */
+.hamburger.open .bar:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.open .bar:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.hamburger.open .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    background: #ffffff;
+    height: 64px;
+    min-height: 64px;
+  }
+  
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: -100vw;
+    width: 75vw;
+    max-width: 300px;
+    height: 100vh;
+    background: #ffffff;
+    flex-direction: column;
+    align-items: stretch; /* Changed from flex-start to stretch */
+    gap: 0.5em; /* Add small gap between items */
+    padding: 4em 0 1em 0;
+    box-shadow: 2px 0 24px rgba(0, 0, 0, 0.15);
+    opacity: 1;
+    pointer-events: none;
+    transition: left 0.3s ease;
+    z-index: 2100;
+    display: flex;
+    border-right: 1px solid #e5e7eb;
+    overflow-y: auto; /* Add scroll if needed */
+  }
+  
+  .nav-links.open {
+    left: 0;
+    pointer-events: auto;
+  }
+  
+  .nav-links a {
+    width: 100%;
+    padding: 1.2em 2em;
+    font-size: 1.1em;
+    font-weight: 500;
+    border-radius: 0;
+    margin: 0;
+    text-align: left;
+    color: #1f2937;
+    border-bottom: 1px solid #f3f4f6;
+    transition: all 0.2s ease;
+    text-decoration: none; /* Remove underlines in mobile */
+  }
+  
+  .nav-links a:hover {
+    background: #f8f9fa;
+    color: #2563eb;
+    padding-left: 2.5em; /* Slight indent on hover */
+    text-decoration: none; /* Ensure no underlines on mobile hover */
+  }
+  
+  .nav-links a.active {
+    background: #2563eb;
+    color: #ffffff;
+    border-left: 4px solid #1d4ed8;
+    text-decoration: none; /* Remove underlines for active state */
+  }
+  
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* Add overlay for mobile menu */
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Additional mobile breakpoint for smaller screens */
+@media (max-width: 480px) {
+  .nav-links {
+    width: 85vw;
+  }
+  
+  .nav-links a {
+    padding: 1em 1.5em;
+    font-size: 1rem;
+  }
+}
