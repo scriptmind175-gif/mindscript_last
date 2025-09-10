@@ -1,17 +1,5 @@
-// Dynamic API configuration based on current domain
-const getApiBaseUrl = () => {
-  const currentHost = window.location.hostname;
-  
-  // If on custom domain, use the same domain for API
-  if (currentHost === 'mindscript.online' || currentHost === 'www.mindscript.online') {
-    return window.location.origin; // Same domain, no CORS issues
-  }
-  
-  // For Vercel URL or localhost, use the working backend URL
-  return 'https://mind-sepia.vercel.app';
-};
-
-const API_BASE_URL = getApiBaseUrl();
+// Use same domain for API - no CORS issues!
+const API_BASE_URL = window.location.origin;
 
 // Debug logging
 console.log('Current hostname:', window.location.hostname);
