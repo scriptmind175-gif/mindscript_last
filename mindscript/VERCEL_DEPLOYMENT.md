@@ -81,4 +81,5 @@ npm start
 
 The app will run on http://localhost:3000 with API functions available at http://localhost:3000/api/*
 
+
 **Note**: For local development, the API functions will work in mock mode unless you set up environment variables. For production deployment on Vercel, add your real credentials in the Vercel dashboard.

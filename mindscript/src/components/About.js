@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './About.css';
 import { courses } from '../data/courses';
 import ApiService from '../services/api';
+import SuccessNotification from './SuccessNotification';
 
 const About = () => {
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
@@ -14,6 +15,7 @@ const About = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [message, setMessage] = useState('');
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleGetCourse = () => {
     // Default to Python course (first course)
@@ -81,14 +83,8 @@ const About = () => {
             
             if (verificationResult.success) {
               setShowRegistrationModal(false);
-              setShowSuccessPopup(true);
+              setShowSuccess(true);
               setFormData({ name: '', email: '', phone: '' });
-              
-              // Redirect to home page after 3 seconds
-              setTimeout(() => {
-                setShowSuccessPopup(false);
-                window.location.href = '/';
-              }, 3000);
             } else {
               alert('Payment verification failed. Please contact support.');
             }
@@ -117,6 +113,10 @@ const About = () => {
       alert('Failed to create order. Please try again.');
       setIsProcessing(false);
     }
+  };
+
+  const closeSuccess = () => {
+    setShowSuccess(false);
   };
 
   return (
@@ -339,6 +339,9 @@ const About = () => {
           </div>
         </div>
       )}
+
+      {/* Success Notification */}
+      <SuccessNotification show={showSuccess} onClose={closeSuccess} />
     </div>
   );
 };

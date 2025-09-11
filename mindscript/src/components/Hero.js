@@ -3,10 +3,12 @@ import "./Hero.css";
 import { courses } from "../data/courses";
 import { useAuth } from '../context/AuthContext';
 import ApiService from '../services/api';
+import SuccessNotification from './SuccessNotification';
 
 function Hero() {
   const [showModal, setShowModal] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [authMode, setAuthMode] = useState('login'); // 'login' or 'register'
   const [loading, setLoading] = useState(false);
   const { user, login, register } = useAuth();
@@ -99,7 +101,7 @@ function Hero() {
             const verificationResult = await ApiService.verifyPayment(verificationData);
             
             if (verificationResult.success) {
-              alert('Registration successful! Welcome to the course.');
+              setShowSuccess(true);
               console.log('Registration saved:', verificationResult.registration);
             } else {
               alert('Payment verification failed. Please contact support.');
@@ -138,6 +140,10 @@ function Hero() {
 
   const closeAuthModal = () => {
     setShowAuthModal(false);
+  };
+
+  const closeSuccess = () => {
+    setShowSuccess(false);
   };
 
   return (
@@ -228,6 +234,9 @@ function Hero() {
           </div>
         </div>
       )}
+
+      {/* Success Notification */}
+      <SuccessNotification show={showSuccess} onClose={closeSuccess} />
     </section>
   );
 }

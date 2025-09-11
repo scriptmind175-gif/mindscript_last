@@ -4,10 +4,12 @@ import "aos/dist/aos.css";
 import "./Courses.css";
 import { courses } from "../data/courses";
 import ApiService from '../services/api';
+import SuccessNotification from './SuccessNotification';
 
 function Courses() {
   const [showModal, setShowModal] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -48,14 +50,11 @@ function Courses() {
 
   const showSuccessMessage = () => {
     setShowModal(false);
-    setShowSuccessPopup(true);
-    
-    // Auto redirect to main page after 3 seconds
-    setTimeout(() => {
-      setShowSuccessPopup(false);
-      // Scroll to top of page (main section)
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 3000);
+    setShowSuccess(true);
+  };
+
+  const closeSuccess = () => {
+    setShowSuccess(false);
   };
 
   const handleSubmit = async (event) => {
@@ -264,22 +263,8 @@ function Courses() {
         </div>
       )}
 
-      {/* Success Popup */}
-      {showSuccessPopup && (
-        <div className="modal-overlay">
-          <div className="modal-content success-popup">
-            <div className="success-content">
-              <div className="success-icon"><i className="fas fa-check-circle"></i></div>
-              <h3>Registration Successful!</h3>
-              <p>Welcome to MindScript!</p>
-              <p>You will receive course access details via email within 24 hours.</p>
-              <div className="redirect-message">
-                <p>Redirecting to main page in 3 seconds...</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Success Notification */}
+      <SuccessNotification show={showSuccess} onClose={closeSuccess} />
     </section>
   );
 }
