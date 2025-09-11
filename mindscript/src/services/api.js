@@ -5,6 +5,7 @@ const API_BASE_URL = window.location.origin;
 console.log('Current hostname:', window.location.hostname);
 console.log('Current origin:', window.location.origin);
 console.log('API Base URL:', API_BASE_URL);
+console.log('Razorpay Key:', 'rzp_live_R89iYFPEnIYUUv');
 
 // Simple fetch helper
 const simpleFetch = async (url, options = {}) => {
