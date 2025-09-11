@@ -5,13 +5,20 @@ const createTransporter = () => {
   // For production, use environment variables
   const emailConfig = {
     host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-    port: process.env.EMAIL_PORT || 587,
+    port: parseInt(process.env.EMAIL_PORT) || 587,
     secure: false, // true for 465, false for other ports
     auth: {
       user: process.env.EMAIL_USER || 'your-email@gmail.com',
       pass: process.env.EMAIL_PASS || 'your-app-password'
     }
   };
+
+  console.log('Email config:', {
+    host: emailConfig.host,
+    port: emailConfig.port,
+    user: emailConfig.auth.user,
+    passSet: !!emailConfig.auth.pass
+  });
 
   return nodemailer.createTransporter(emailConfig);
 };
@@ -219,14 +226,29 @@ const createRegistrationEmailTemplate = (registrationData) => {
 // Send registration confirmation email
 const sendRegistrationEmail = async (registrationData) => {
   try {
+    console.log('Starting email send process...');
+    console.log('Registration data:', registrationData);
+    
     const transporter = createTransporter();
+    
+    // Verify connection first
+    console.log('Verifying SMTP connection...');
+    await transporter.verify();
+    console.log('SMTP connection verified');
+    
     const emailTemplate = createRegistrationEmailTemplate(registrationData);
+    console.log('Email template created, sending email...');
     
     const info = await transporter.sendMail(emailTemplate);
     console.log('Email sent successfully:', info.messageId);
     return { success: true, messageId: info.messageId };
   } catch (error) {
     console.error('Error sending email:', error);
+    console.error('Error details:', {
+      message: error.message,
+      code: error.code,
+      command: error.command
+    });
     return { success: false, error: error.message };
   }
 };
