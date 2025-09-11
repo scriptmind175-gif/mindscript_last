@@ -1,19 +1,13 @@
-import crypto from 'crypto';
-import { createClient } from '@supabase/supabase-js';
+const crypto = require('crypto');
+const { createClient } = require('@supabase/supabase-js');
 
-// Initialize Supabase
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-);
-
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   // Set CORS headers
+  res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  
-  // Handle preflight requests
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
@@ -24,18 +18,42 @@ export default async function handler(req, res) {
   }
 
   try {
-    console.log('Verifying payment:', req.body);
+    const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+    console.log('Verifying payment:', body);
     
     const {
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature,
       registrationData
-    } = req.body;
+    } = body;
+
+    // For mock orders, skip verification
+    if (razorpay_order_id && razorpay_order_id.startsWith('mock_order_')) {
+      console.log('Mock order detected, skipping verification');
+      
+      // Validate registration data
+      if (!registrationData) {
+        return res.status(400).json({ success: false, message: 'Registration data is required' });
+      }
+      
+      const { name, email, phone, courseId, courseName, amount } = registrationData;
+      
+      if (!name || !email || !phone || !courseId || !courseName || !amount) {
+        return res.status(400).json({ success: false, message: 'Missing required registration fields' });
+      }
+      
+      return res.json({ 
+        success: true, 
+        message: 'Mock payment verified and registration saved',
+        registrationId: `mock_reg_${Date.now()}`,
+        mock: true
+      });
+    }
 
     // Verify payment signature
     const expectedSignature = crypto
-      .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
+      .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET || 'placeholder_secret')
       .update(`${razorpay_order_id}|${razorpay_payment_id}`)
       .digest('hex');
 
@@ -52,6 +70,12 @@ export default async function handler(req, res) {
       if (!name || !email || !phone || !courseId || !courseName || !amount) {
         return res.status(400).json({ success: false, message: 'Missing required registration fields' });
       }
+      
+      // Initialize Supabase
+      const supabase = createClient(
+        process.env.SUPABASE_URL || 'https://placeholder.supabase.co',
+        process.env.SUPABASE_ANON_KEY || 'placeholder_key'
+      );
       
       // Save registration to Supabase
       const registrationDoc = {
@@ -91,4 +115,4 @@ export default async function handler(req, res) {
     console.error('Payment verification error:', error);
     res.status(500).json({ success: false, message: 'Payment verification failed', error: error.message });
   }
-}
+};

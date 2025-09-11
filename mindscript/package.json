@@ -14,7 +14,6 @@
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4",
     "razorpay": "^2.9.2",
-    "crypto": "^1.0.1",
     "@supabase/supabase-js": "^2.38.4"
   },
   "scripts": {
