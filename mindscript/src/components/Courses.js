@@ -7,7 +7,7 @@ import ApiService from '../services/api';
 
 function Courses() {
   const [showModal, setShowModal] = useState(false);
-  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -48,12 +48,14 @@ function Courses() {
 
   const showSuccessMessage = () => {
     setShowModal(false);
-    setShowSuccessNotification(true);
+    setShowSuccessPopup(true);
     
-    // Auto hide notification after 2 seconds
+    // Auto redirect to main page after 3 seconds
     setTimeout(() => {
-      setShowSuccessNotification(false);
-    }, 2000);
+      setShowSuccessPopup(false);
+      // Scroll to top of page (main section)
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 3000);
   };
 
   const handleSubmit = async (event) => {
@@ -262,13 +264,19 @@ function Courses() {
         </div>
       )}
 
-      {/* Success Notification */}
-      {showSuccessNotification && (
-        <div className="success-notification">
-          <div className="success-icon"><i className="fas fa-check-circle"></i></div>
-          <div className="success-text">
-            <h4>Payment Completed!</h4>
-            <p>Registration successful. Welcome to MindScript!</p>
+      {/* Success Popup */}
+      {showSuccessPopup && (
+        <div className="modal-overlay">
+          <div className="modal-content success-popup">
+            <div className="success-content">
+              <div className="success-icon"><i className="fas fa-check-circle"></i></div>
+              <h3>Registration Successful!</h3>
+              <p>Welcome to MindScript!</p>
+              <p>You will receive course access details via email within 24 hours.</p>
+              <div className="redirect-message">
+                <p>Redirecting to main page in 3 seconds...</p>
+              </div>
+            </div>
           </div>
         </div>
       )}

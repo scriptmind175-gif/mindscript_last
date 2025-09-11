@@ -13,7 +13,7 @@ const About = () => {
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const [message, setMessage] = useState('');
-  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const handleGetCourse = () => {
     // Default to Python course (first course)
@@ -81,13 +81,14 @@ const About = () => {
             
             if (verificationResult.success) {
               setShowRegistrationModal(false);
-              setShowSuccessNotification(true);
+              setShowSuccessPopup(true);
               setFormData({ name: '', email: '', phone: '' });
               
-              // Auto hide notification after 2 seconds
+              // Redirect to home page after 3 seconds
               setTimeout(() => {
-                setShowSuccessNotification(false);
-              }, 2000);
+                setShowSuccessPopup(false);
+                window.location.href = '/';
+              }, 3000);
             } else {
               alert('Payment verification failed. Please contact support.');
             }
@@ -328,13 +329,13 @@ const About = () => {
         </div>
       )}
 
-      {/* Success Notification */}
-      {showSuccessNotification && (
-        <div className="success-notification">
-          <div className="success-icon"><i className="fas fa-check-circle"></i></div>
-          <div className="success-text">
-            <h4>Payment Completed!</h4>
-            <p>Registration successful. Welcome to MindScript!</p>
+      {/* Success Popup */}
+      {showSuccessPopup && (
+        <div className="success-popup">
+          <div className="success-content">
+            <h3>Payment Successful!</h3>
+            <p>Your registration has been completed successfully.</p>
+            <p>Redirecting to home page...</p>
           </div>
         </div>
       )}
