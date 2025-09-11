@@ -80,7 +80,7 @@ function Hero() {
       const orderData = await ApiService.createOrder(selectedCourse.id);
       
       const options = {
-        key: "rzp_live_R6kzNc1g06owLV",
+        key: "rzp_live_R89iYFPEnIYUUv",
         amount: orderData.order.amount,
         currency: orderData.order.currency,
         name: "MindScript",

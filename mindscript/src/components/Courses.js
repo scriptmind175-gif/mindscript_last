@@ -102,7 +102,7 @@ function Courses() {
       console.log('Order created:', orderData);
       
       const options = {
-        key: "rzp_live_R6kzNc1g06owLV",
+        key: "rzp_live_R89iYFPEnIYUUv",
         amount: orderData.amount,
         currency: 'INR',
         name: 'MindScript',

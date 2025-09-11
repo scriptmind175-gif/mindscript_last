@@ -54,7 +54,7 @@ const About = () => {
       const orderData = await ApiService.createOrder(selectedCourse.price, 'INR');
       
       const options = {
-        key: "rzp_live_R6kzNc1g06owLV",
+        key: "rzp_live_R89iYFPEnIYUUv",
         amount: orderData.amount,
         currency: orderData.currency,
         name: 'MindScript',
