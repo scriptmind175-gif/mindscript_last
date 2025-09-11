@@ -9,6 +9,8 @@
   justify-content: center;
   align-items: center;
   z-index: 10000;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .success-notification {
@@ -18,8 +20,11 @@
   text-align: center;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   max-width: 400px;
-  width: 90%;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
   animation: slideIn 0.3s ease-out;
+  position: relative;
 }
 
 @keyframes slideIn {
@@ -87,4 +92,154 @@
 
 .success-close-btn:hover {
   background: #2980b9;
+}
+
+/* Mobile Devices (320px - 480px) */
+@media (max-width: 480px) {
+  .success-notification {
+    padding: 30px 20px;
+    margin: 10px;
+    max-width: calc(100% - 20px);
+    border-radius: 8px;
+  }
+  
+  .success-tick {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    margin-bottom: 15px;
+  }
+  
+  .success-notification h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  
+  .success-notification p {
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+  
+  .success-close-btn {
+    padding: 10px 25px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+/* Small Mobile Devices (320px - 375px) */
+@media (max-width: 375px) {
+  .success-notification {
+    padding: 25px 15px;
+    margin: 5px;
+  }
+  
+  .success-tick {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+  }
+  
+  .success-notification h3 {
+    font-size: 18px;
+  }
+  
+  .success-notification p {
+    font-size: 13px;
+  }
+}
+
+/* Tablet Devices (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .success-notification {
+    padding: 35px 30px;
+    max-width: 350px;
+  }
+  
+  .success-tick {
+    width: 70px;
+    height: 70px;
+    font-size: 35px;
+  }
+  
+  .success-notification h3 {
+    font-size: 22px;
+  }
+  
+  .success-notification p {
+    font-size: 15px;
+  }
+}
+
+/* Large Tablets and Small Desktops (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .success-notification {
+    padding: 40px 35px;
+    max-width: 380px;
+  }
+}
+
+/* Landscape Mobile Devices */
+@media (max-height: 500px) and (orientation: landscape) {
+  .success-notification {
+    padding: 20px;
+    max-height: 80vh;
+  }
+  
+  .success-tick {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    margin-bottom: 10px;
+  }
+  
+  .success-notification h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .success-notification p {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+  
+  .success-close-btn {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .success-notification {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .success-notification {
+    animation: none;
+  }
+  
+  .success-tick {
+    animation: none;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .success-notification {
+    background: #2c2c2c;
+    color: #ffffff;
+  }
+  
+  .success-notification h3 {
+    color: #ffffff;
+  }
+  
+  .success-notification p {
+    color: #cccccc;
+  }
 }
