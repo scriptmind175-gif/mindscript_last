@@ -57,6 +57,12 @@ module.exports = async (req, res) => {
       .update(`${razorpay_order_id}|${razorpay_payment_id}`)
       .digest('hex');
 
+    console.log('Signature verification:', {
+      expected: expectedSignature,
+      received: razorpay_signature,
+      match: expectedSignature === razorpay_signature
+    });
+
     if (expectedSignature === razorpay_signature) {
       console.log('Payment verified successfully');
       
