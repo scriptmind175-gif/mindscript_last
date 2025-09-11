@@ -1,134 +1,86 @@
-# Deployment Guide
+# MindScript Deployment Guide
 
 ## Overview
-This guide covers deploying the MindScript application to production. The application consists of:
-- **Frontend**: React application (located in `sunny-main2/mindscript/`)
-- **Backend**: Node.js API server (located in `backend/`)
-- **Database**: Supabase (already configured)
+This guide covers deploying the MindScript application as a single website on Vercel with serverless API functions.
+
+## Project Structure
+```
+mindscript/
+├── api/                    # Vercel serverless functions
+│   ├── test.js            # Test endpoint
+│   ├── create-order.js    # Razorpay order creation
+│   ├── verify-payment.js  # Payment verification
+│   └── registrations.js   # Get registrations
+├── src/                   # React frontend
+├── public/                # Static assets
+├── vercel.json           # Vercel configuration
+└── package.json          # Dependencies
+```
 
 ## Prerequisites
-- Vercel account (recommended for deployment)
-- Git repository
-- Environment variables configured
+- Vercel account
+- Razorpay account (for payments)
+- Supabase account (for database)
 
-## Frontend Deployment
+## Environment Variables Required
+Set these in your Vercel dashboard:
 
-### 1. Production Build
-The production build has already been created in `sunny-main2/mindscript/build/`
+### Required for Production:
+- `RAZORPAY_KEY_ID` - Your Razorpay key ID
+- `RAZORPAY_KEY_SECRET` - Your Razorpay key secret
+- `SUPABASE_URL` - Your Supabase project URL
+- `SUPABASE_ANON_KEY` - Your Supabase anonymous key
 
-### 2. Environment Variables
-Ensure these variables are set in your deployment platform:
-```
-REACT_APP_RAZORPAY_KEY_ID=rzp_live_R89iYFPEnIYUUv
-REACT_APP_API_BASE_URL=https://script-jade-alpha.vercel.app
-```
+## Deployment Steps
 
-### 3. Deploy to Vercel
+1. **Install Vercel CLI**:
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Login to Vercel**:
+   ```bash
+   vercel login
+   ```
+
+3. **Deploy from the mindscript directory**:
+   ```bash
+   cd mindscript
+   vercel
+   ```
+
+4. **Set Environment Variables**:
+   - Go to your Vercel dashboard
+   - Select your project
+   - Go to Settings > Environment Variables
+   - Add the required variables listed above
+
+5. **Redeploy** (if you added env vars after first deploy):
+   ```bash
+   vercel --prod
+   ```
+
+## Features
+- ✅ Single website deployment
+- ✅ Serverless API functions
+- ✅ CORS handled automatically
+- ✅ Mock mode for testing without real credentials
+- ✅ Production ready with real Razorpay integration
+- ✅ Supabase integration for data storage
+
+## API Endpoints
+- `GET /api/test` - Health check
+- `POST /api/create-order` - Create Razorpay order
+- `POST /api/verify-payment` - Verify payment and save registration
+- `GET /api/registrations` - Get all registrations
+
+## Testing Locally
 ```bash
-cd sunny-main2/mindscript
-npx vercel --prod
+cd mindscript
+npm install
+npm start
 ```
 
-### 4. Alternative: Deploy to Netlify
-1. Connect your Git repository to Netlify
-2. Set build command: `npm run build`
-3. Set publish directory: `build`
-4. Add environment variables in Netlify dashboard
+The app will run on http://localhost:3000 with API functions available at http://localhost:3000/api/*
 
-## Backend Deployment
-
-### 1. Environment Variables
-Ensure these are configured in your deployment platform:
-```
-SUPABASE_URL=https://ymdhgxfpmjvclwouzvld.supabase.co
-SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-RAZORPAY_KEY_ID=rzp_live_R89iYFPEnIYUUv
-RAZORPAY_KEY_SECRET=1XUbBndcwEWFOt8oHn9AvdRT
-PORT=5001
-```
-
-### 2. Deploy to Vercel
-```bash
-cd backend
-npx vercel --prod
-```
-
-## Database Setup (Supabase)
-
-### Required Tables
-Ensure your Supabase database has the following table:
-
-```sql
-CREATE TABLE registrations (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  phone VARCHAR(20),
-  course VARCHAR(255) NOT NULL,
-  payment_id VARCHAR(255),
-  order_id VARCHAR(255),
-  signature VARCHAR(255),
-  amount DECIMAL(10,2),
-  status VARCHAR(50) DEFAULT 'pending',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
-## Post-Deployment Steps
-
-### 1. Update Frontend API URL
-After backend deployment, update the frontend's `.env` file:
-```
-REACT_APP_API_BASE_URL=https://your-backend-domain.vercel.app
-```
-
-### 2. Redeploy Frontend
-After updating the API URL, redeploy the frontend.
-
-### 3. Test Payment Integration
-- Test course registration
-- Verify Razorpay payment flow
-- Check database entries in Supabase
-
-## Deployment Commands Summary
-
-```bash
-# Frontend deployment
-cd sunny-main2/mindscript
-npm run build
-npx vercel --prod
-
-# Backend deployment
-cd backend
-npx vercel --prod
-```
-
-## Troubleshooting
-
-### Common Issues
-1. **CORS Errors**: Ensure backend allows frontend domain
-2. **Environment Variables**: Double-check all env vars are set
-3. **API Endpoints**: Verify backend URL is correct in frontend
-4. **Database Connection**: Test Supabase connection
-
-### Monitoring
-- Check Vercel deployment logs
-- Monitor Supabase dashboard for database activity
-- Test all API endpoints after deployment
-
-## Production Checklist
-- [ ] Frontend build created successfully
-- [ ] Backend environment variables configured
-- [ ] Frontend environment variables configured
-- [ ] Supabase database tables created
-- [ ] Payment integration tested
-- [ ] CORS configured properly
-- [ ] SSL certificates active
-- [ ] Domain configured (if custom domain)
-
-## Support
-For deployment issues, check:
-1. Vercel deployment logs
-2. Browser developer console
-3. Supabase logs
-4. Network tab for API calls
+**Note**: For local development, the API functions will work in mock mode unless you set up environment variables. For production deployment on Vercel, add your real credentials in the Vercel dashboard.
