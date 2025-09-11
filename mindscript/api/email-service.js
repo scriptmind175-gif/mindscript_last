@@ -20,7 +20,7 @@ const createTransporter = () => {
     passSet: !!emailConfig.auth.pass
   });
 
-  return nodemailer.createTransporter(emailConfig);
+  return nodemailer.createTransport(emailConfig);
 };
 
 // Email template for registration confirmation
