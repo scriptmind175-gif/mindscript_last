@@ -20,7 +20,6 @@ module.exports = async (req, res) => {
 
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-    console.log('Verifying payment:', body);
     
     const {
       razorpay_order_id,
@@ -31,7 +30,6 @@ module.exports = async (req, res) => {
 
     // For mock orders, skip verification
     if (razorpay_order_id && razorpay_order_id.startsWith('mock_order_')) {
-      console.log('Mock order detected, skipping verification');
       
       // Validate registration data
       if (!registrationData) {
@@ -55,7 +53,6 @@ module.exports = async (req, res) => {
         };
         
         const emailResult = await sendRegistrationEmail(emailData);
-        console.log('Mock order email result:', emailResult);
       } catch (emailError) {
         console.error('Error sending mock order email:', emailError);
         // Don't fail the registration if email fails
@@ -76,7 +73,6 @@ module.exports = async (req, res) => {
       .digest('hex');
 
     if (expectedSignature === razorpay_signature) {
-      console.log('Payment verified successfully');
       
       // Validate registration data
       if (!registrationData) {
@@ -118,7 +114,7 @@ module.exports = async (req, res) => {
         return res.status(500).json({ success: false, message: 'Failed to save registration', error: error.message });
       }
       
-      console.log('Registration saved:', data[0].id);
+      // Registration saved successfully
       
       // Send confirmation email
       try {
@@ -131,7 +127,6 @@ module.exports = async (req, res) => {
         };
         
         const emailResult = await sendRegistrationEmail(emailData);
-        console.log('Registration email result:', emailResult);
       } catch (emailError) {
         console.error('Error sending registration email:', emailError);
         // Don't fail the registration if email fails
@@ -143,7 +138,6 @@ module.exports = async (req, res) => {
         registrationId: data[0].id
       });
     } else {
-      console.error('Payment signature verification failed');
       res.status(400).json({ success: false, message: 'Payment verification failed' });
     }
   } catch (error) {

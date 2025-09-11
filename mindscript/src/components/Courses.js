@@ -94,11 +94,8 @@ function Courses() {
         return;
       }
       
-      console.log('Creating order for course:', selectedCourseData);
-      
       // Create order
       const orderData = await ApiService.createOrder(selectedCourseData.price, 'INR');
-      console.log('Order created:', orderData);
       
       const options = {
         key: "rzp_live_R89iYFPEnIYUUv",
@@ -109,8 +106,6 @@ function Courses() {
         order_id: orderData.orderId,
         handler: async function (response) {
           try {
-            console.log('Payment successful:', response);
-            
             // Verify payment
             const verificationData = {
               razorpay_order_id: response.razorpay_order_id,
@@ -129,7 +124,6 @@ function Courses() {
             const verificationResult = await ApiService.verifyPayment(verificationData);
             
             if (verificationResult.success) {
-              console.log('Registration saved:', verificationResult.registration);
               resetForm();
               showSuccessMessage();
             } else {
