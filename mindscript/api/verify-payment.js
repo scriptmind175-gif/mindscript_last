@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
+const { sendRegistrationEmail } = require('./email-service');
 
 module.exports = async (req, res) => {
   // Set CORS headers
@@ -41,6 +42,23 @@ module.exports = async (req, res) => {
       
       if (!name || !email || !phone || !courseId || !courseName || !amount) {
         return res.status(400).json({ success: false, message: 'Missing required registration fields' });
+      }
+      
+      // Send confirmation email for mock orders
+      try {
+        const emailData = {
+          name,
+          email,
+          courseName,
+          amount,
+          paymentId: `mock_${Date.now()}`
+        };
+        
+        const emailResult = await sendRegistrationEmail(emailData);
+        console.log('Mock order email result:', emailResult);
+      } catch (emailError) {
+        console.error('Error sending mock order email:', emailError);
+        // Don't fail the registration if email fails
       }
       
       return res.json({ 
@@ -101,6 +119,23 @@ module.exports = async (req, res) => {
       }
       
       console.log('Registration saved:', data[0].id);
+      
+      // Send confirmation email
+      try {
+        const emailData = {
+          name,
+          email,
+          courseName,
+          amount,
+          paymentId: razorpay_payment_id
+        };
+        
+        const emailResult = await sendRegistrationEmail(emailData);
+        console.log('Registration email result:', emailResult);
+      } catch (emailError) {
+        console.error('Error sending registration email:', emailError);
+        // Don't fail the registration if email fails
+      }
       
       res.json({ 
         success: true, 
