@@ -6,10 +6,31 @@ module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
   res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+  res.setHeader('Access-Control-Max-Age', '86400'); // 24 hours
 
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
+  }
+
+  if (req.method === 'GET') {
+    // Return a simple test page for GET requests
+    return res.status(200).json({
+      message: 'Email Test Endpoint',
+      instructions: 'Send a POST request with JSON body containing: name, email, courseName, amount',
+      example: {
+        name: 'Test User',
+        email: 'test@example.com',
+        courseName: 'Test Course',
+        amount: 999
+      },
+      envCheck: {
+        EMAIL_HOST: process.env.EMAIL_HOST || 'NOT_SET',
+        EMAIL_PORT: process.env.EMAIL_PORT || 'NOT_SET',
+        EMAIL_USER: process.env.EMAIL_USER ? '***@' + process.env.EMAIL_USER.split('@')[1] : 'NOT_SET',
+        EMAIL_PASS: process.env.EMAIL_PASS ? '***' : 'NOT_SET'
+      }
+    });
   }
 
   if (req.method !== 'POST') {
