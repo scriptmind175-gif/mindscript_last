@@ -172,8 +172,8 @@ const createRegistrationEmailTemplate = (registrationData) => {
             <h3>📞 Need Help?</h3>
             <p>If you have any questions or need assistance, don't hesitate to reach out:</p>
             <p>
-              <strong>Email:</strong> support@mindscript.online<br>
-              <strong>Phone:</strong> +91-9876543210<br>
+              <strong>Email:</strong>mindscript00@gmail.com<br>
+              <strong>Phone:</strong> +91-8074896216<br>
               <strong>Website:</strong> <a href="https://mindscript.online">mindscript.online</a>
             </p>
           </div>
