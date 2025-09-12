@@ -52,9 +52,16 @@ module.exports = async (req, res) => {
           paymentId: `mock_${Date.now()}`
         };
         
+        console.log('📧 Sending mock order confirmation email...');
         const emailResult = await sendRegistrationEmail(emailData);
+        
+        if (emailResult.success) {
+          console.log('✅ Mock order email sent successfully');
+        } else {
+          console.error('❌ Mock order email failed:', emailResult.error);
+        }
       } catch (emailError) {
-        console.error('Error sending mock order email:', emailError);
+        console.error('❌ Error sending mock order email:', emailError);
         // Don't fail the registration if email fails
       }
       
@@ -126,9 +133,16 @@ module.exports = async (req, res) => {
           paymentId: razorpay_payment_id
         };
         
+        console.log('📧 Sending registration confirmation email...');
         const emailResult = await sendRegistrationEmail(emailData);
+        
+        if (emailResult.success) {
+          console.log('✅ Registration email sent successfully');
+        } else {
+          console.error('❌ Registration email failed:', emailResult.error);
+        }
       } catch (emailError) {
-        console.error('Error sending registration email:', emailError);
+        console.error('❌ Error sending registration email:', emailError);
         // Don't fail the registration if email fails
       }
       

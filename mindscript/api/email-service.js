@@ -221,18 +221,45 @@ const createRegistrationEmailTemplate = (registrationData) => {
 // Send registration confirmation email
 const sendRegistrationEmail = async (registrationData) => {
   try {
+    console.log('📧 Starting email send process...');
+    console.log('📧 Email config check:', {
+      host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+      port: process.env.EMAIL_PORT || 587,
+      user: process.env.EMAIL_USER ? '***@' + process.env.EMAIL_USER.split('@')[1] : 'NOT_SET',
+      pass: process.env.EMAIL_PASS ? '***' : 'NOT_SET'
+    });
+    
     const transporter = createTransporter();
     
     // Verify connection first
+    console.log('📧 Verifying SMTP connection...');
     await transporter.verify();
+    console.log('✅ SMTP connection verified successfully');
     
     const emailTemplate = createRegistrationEmailTemplate(registrationData);
+    console.log('📧 Sending email to:', emailTemplate.to);
+    
     const info = await transporter.sendMail(emailTemplate);
+    console.log('✅ Email sent successfully! Message ID:', info.messageId);
     
     return { success: true, messageId: info.messageId };
   } catch (error) {
-    console.error('Error sending email:', error.message);
-    return { success: false, error: error.message };
+    console.error('❌ Email sending failed:');
+    console.error('Error type:', error.code);
+    console.error('Error message:', error.message);
+    console.error('Full error:', error);
+    
+    // Provide more specific error messages
+    let errorMessage = error.message;
+    if (error.code === 'EAUTH') {
+      errorMessage = 'Email authentication failed. Check EMAIL_USER and EMAIL_PASS environment variables.';
+    } else if (error.code === 'ECONNECTION') {
+      errorMessage = 'Email connection failed. Check EMAIL_HOST and EMAIL_PORT environment variables.';
+    } else if (error.code === 'ETIMEDOUT') {
+      errorMessage = 'Email connection timed out. Check your internet connection and SMTP settings.';
+    }
+    
+    return { success: false, error: errorMessage, code: error.code };
   }
 };
 
