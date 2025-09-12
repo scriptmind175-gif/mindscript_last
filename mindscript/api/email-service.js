@@ -174,7 +174,8 @@ const createRegistrationEmailTemplate = (registrationData) => {
             <p>
               <strong>Email:</strong>mindscript00@gmail.com<br>
               <strong>Phone:</strong> +91-8074896216<br>
-              <strong>Website:</strong> <a href="https://mindscript.online">mindscript.online</a>
+              <strong>Website:</strong> <a href="https://mindscript.online">mindscript.online</a><br>
+              <strong>Instagram:</strong> <a href="https://www.instagram.com/mindscript_02?igsh=MWZxcDZreWt0NHR2dQ==">@mindscript_02</a>
             </p>
           </div>
           
@@ -207,9 +208,10 @@ const createRegistrationEmailTemplate = (registrationData) => {
       - Join our exclusive student community
       
       Need Help?
-      Email: support@mindscript.online
-      Phone: +91-9876543210
+      Email: mindscript00@gmail.com
+      Phone: +91-8074896216
       Website: https://mindscript.online
+      Instagram: https://www.instagram.com/mindscript_02?igsh=MWZxcDZreWt0NHR2dQ==
       
       Thank you for choosing MindScript!
       

@@ -155,23 +155,27 @@ function Hero() {
 
   return (
     <section className="hero">
-      <h1 className="hero-title">Master Coding & AI</h1>
-      <h2 className="hero-tagline">Where Mind Learns the Script</h2>
+      <h1 className="hero-title">Master Coding & AI Programming | Premium Online Courses</h1>
+      <h2 className="hero-tagline">Where Mind Learns the Script - Expert Programming Education</h2>
       <p className="hero-desc">
-        Transform your future with our cutting-edge courses. Learn from industry experts, build real-world projects, and join a community of innovators. Start your tech journey today!
+        Transform your career with our cutting-edge programming courses. Learn Python, JavaScript, React, AI, Machine Learning, and Full Stack Development from industry experts. Build real-world projects, get personalized mentorship, and join India's leading coding community. Start your tech journey today!
       </p>
       <div className="hero-stats">
         <div className="stat">
-          <span className="stat-number">500+</span>
-          <span className="stat-label">Students Enrolled</span>
+          <span className="stat-number">1000+</span>
+          <span className="stat-label">Coding Students Enrolled</span>
         </div>
         <div className="stat">
-          <span className="stat-number">95%</span>
-          <span className="stat-label">Success Rate</span>
+          <span className="stat-number">98%</span>
+          <span className="stat-label">Job Placement Rate</span>
         </div>
         <div className="stat">
           <span className="stat-number">₹199+</span>
-          <span className="stat-label">Starting From</span>
+          <span className="stat-label">Affordable Courses</span>
+        </div>
+        <div className="stat">
+          <span className="stat-number">24/7</span>
+          <span className="stat-label">Expert Mentorship</span>
         </div>
       </div>
       <button onClick={handleGetCourse} className="hero-cta">Start Learning Now</button>
