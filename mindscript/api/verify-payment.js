@@ -21,12 +21,20 @@ module.exports = async (req, res) => {
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
     
+    console.log('🔍 Payment verification request received:');
+    console.log('Request body:', JSON.stringify(body, null, 2));
+    
     const {
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature,
       registrationData
     } = body;
+    
+    console.log('📋 Extracted data:');
+    console.log('Order ID:', razorpay_order_id);
+    console.log('Payment ID:', razorpay_payment_id);
+    console.log('Registration Data:', registrationData);
 
     // For mock orders, skip verification
     if (razorpay_order_id && razorpay_order_id.startsWith('mock_order_')) {
@@ -80,11 +88,15 @@ module.exports = async (req, res) => {
       .digest('hex');
 
     if (expectedSignature === razorpay_signature) {
+      console.log('✅ Payment signature verified successfully');
       
       // Validate registration data
       if (!registrationData) {
+        console.log('❌ No registration data provided');
         return res.status(400).json({ success: false, message: 'Registration data is required' });
       }
+      
+      console.log('📋 Registration data validation passed');
       
       const { name, email, phone, courseId, courseName, amount } = registrationData;
       
@@ -122,6 +134,7 @@ module.exports = async (req, res) => {
       }
       
       // Registration saved successfully
+      console.log('💾 Registration saved to database successfully');
       
       // Send confirmation email
       try {
@@ -134,6 +147,7 @@ module.exports = async (req, res) => {
         };
         
         console.log('📧 Sending registration confirmation email...');
+        console.log('📧 Email data:', emailData);
         const emailResult = await sendRegistrationEmail(emailData);
         
         if (emailResult.success) {
@@ -152,6 +166,9 @@ module.exports = async (req, res) => {
         registrationId: data[0].id
       });
     } else {
+      console.log('❌ Payment signature verification failed');
+      console.log('Expected signature:', expectedSignature);
+      console.log('Received signature:', razorpay_signature);
       res.status(400).json({ success: false, message: 'Payment verification failed' });
     }
   } catch (error) {
