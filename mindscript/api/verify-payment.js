@@ -36,11 +36,13 @@ module.exports = async (req, res) => {
     console.log('Payment ID:', razorpay_payment_id);
     console.log('Registration Data:', registrationData);
 
-    // For mock orders, skip verification
-    if (razorpay_order_id && razorpay_order_id.startsWith('mock_order_')) {
+    // For mock orders or test orders, skip verification
+    if (razorpay_order_id && (razorpay_order_id.startsWith('mock_order_') || razorpay_order_id === 'test_order')) {
+      console.log('🧪 Test/Mock order detected, skipping signature verification');
       
       // Validate registration data
       if (!registrationData) {
+        console.log('❌ No registration data provided for test order');
         return res.status(400).json({ success: false, message: 'Registration data is required' });
       }
       
@@ -82,6 +84,7 @@ module.exports = async (req, res) => {
     }
 
     // Verify payment signature
+    console.log('🔐 Verifying payment signature for real payment...');
     const expectedSignature = crypto
       .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET || 'placeholder_secret')
       .update(`${razorpay_order_id}|${razorpay_payment_id}`)
