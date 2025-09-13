@@ -17,7 +17,7 @@ export const courses = [
     id: "507f1f77bcf86cd799439012",
     title: "Web Technology Course",
     duration: "4 Weeks",
-    price: 1,
+    price: 499,
     animation: "fade-up",
     highlights: [
       "Master HTML, CSS, and JavaScript",
