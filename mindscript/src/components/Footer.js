@@ -45,6 +45,7 @@ function Footer() {
       
       <div className="footer-bottom">
         <p>&copy; 2025 MindScript. All rights reserved. | Secure payments powered by Razorpay</p>
+        <p className="developer-credit">Developed by Quick Developers</p>
       </div>
     </footer>
   );
