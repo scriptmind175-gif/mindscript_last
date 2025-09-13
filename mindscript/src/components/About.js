@@ -232,7 +232,7 @@ const About = () => {
             </div>
             <div className="member-info">
               <h3>KORA NAGA MASTAN SAI</h3>
-              <div className="member-role">Co-Founder & Lead Instructor</div>
+              <div className="member-role">Mentor</div>
               <div className="member-experience">2+ Years Experience in Python Teaching</div>
               <p className="member-bio">
                 Experienced Python instructor specializing in AI, Data Analytics, and Machine Learning. 
